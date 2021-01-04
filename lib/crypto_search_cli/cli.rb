@@ -191,6 +191,10 @@ class CryptoSearchCli::CLI
         if selection == "1"
             puts "Enter new currency: (usd, cad, huf)"
             currency = gets.chomp.downcase 
+            while !Money::Currency.include?(currency)
+                puts "#{currency} is not a valid currency code, please try again:"
+                currency = gets.chomp.downcase
+            end
             history_menu(coin, currency)
         elsif selection == "2"
             market_menu(coin, currency)
