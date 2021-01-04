@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/crypto_search.rb'
+
+CryptoSearchCli::CLI.new.call
