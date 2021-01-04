@@ -220,8 +220,8 @@ class CryptoSearchCli::CLI
         puts " [1] Current Market details"
         puts " [2] Historical Market Details"
         puts " [3] Open Homepage in Browser"
-        puts " [3] Return and look up another cryptocurrency"
-        puts " [4] Exit program"
+        puts " [4] Return and look up another cryptocurrency"
+        puts " [5] Exit program"
 
         selection = gets.chomp
         if selection == "1"
@@ -236,7 +236,7 @@ class CryptoSearchCli::CLI
         elsif selection == "5"
             exit_program
         else
-            puts "Invalid selection, please enter 1, 2, 3, or 4:"
+            puts "Invalid selection, please enter 1, 2, 3, 4 or 5:"
             developer_menu(coin)
         end
     end
