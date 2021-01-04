@@ -219,6 +219,7 @@ class CryptoSearchCli::CLI
 
         puts " [1] Current Market details"
         puts " [2] Historical Market Details"
+        puts " [3] Open Homepage in Browser"
         puts " [3] Return and look up another cryptocurrency"
         puts " [4] Exit program"
 
@@ -228,8 +229,11 @@ class CryptoSearchCli::CLI
         elsif selection == "2"
             history_menu(coin)
         elsif selection == "3"
-            main_lookup
+            coin.open_in_browser
+            developer_menu(coin)
         elsif selection == "4"
+            main_lookup
+        elsif selection == "5"
             exit_program
         else
             puts "Invalid selection, please enter 1, 2, 3, or 4:"

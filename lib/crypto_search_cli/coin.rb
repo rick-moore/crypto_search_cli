@@ -25,6 +25,11 @@ class CryptoSearchCli::Coin
         self.all.detect{|i| i.symbol.downcase == input.downcase} || self.all.detect{|i| i.name.downcase == input.downcase}
     end
 
+    def open_in_browser
+        system("open '#{self.links["homepage"][0]}'")
+    end
+
+
 
     ##### NUMBER FORMATTING #####
     def format_currency(currency, amount)
