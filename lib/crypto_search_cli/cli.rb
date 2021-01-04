@@ -4,7 +4,7 @@ class CryptoSearchCli::CLI
     ##### INITIALIZING FUNCTIONS #####
     def call
         ##### PULL DATA AND CREATE COIN OBJECTS FROM API #####
-        MarketScraper.make_coins
+        CryptoSearchCli::MarketScraper.make_coins
 
         ##### WELCOME USER #####
         puts "\n\n\n\n"
@@ -36,7 +36,7 @@ class CryptoSearchCli::CLI
         puts Rainbow("              **********************").green
         puts "\n"
 
-        top_list = MarketScraper.get_top_list
+        top_list = CryptoSearchCli::MarketScraper.get_top_list
         index = 0
 
         ##### USES PASSED NUMBER TO DISPLAY RANGE OF 10 CURRENCIES,UNTIL next IS NOT ENTERED #####
@@ -60,8 +60,8 @@ class CryptoSearchCli::CLI
 
     def coin_grab(input)
         ##### EITHER FINDS COIN OBJECT BY NAME OR SYMBOL, AND CALLS #main_menu #####
-        coin = Coin.find_by_symbol_or_name(input)
-        if coin.class == Coin
+        coin = CryptoSearchCli::Coin.find_by_symbol_or_name(input)
+        if coin.class == CryptoSearchCli::Coin
             coin.display_current_price
             main_menu(coin)
         else
@@ -110,7 +110,7 @@ class CryptoSearchCli::CLI
 
     def details_menu(coin)
         ##### ONLY ADDS EXTENDED DETAILS WHEN WE REACH THIS MENU #####
-        coin.add_attributes(MarketScraper.get_extended_data(coin))
+        coin.add_attributes(CryptoSearchCli::MarketScraper.get_extended_data(coin))
         puts "\n\n\n\n"
         puts Rainbow("   ******************").cyan.bright
         puts Rainbow("    #{coin.name} Details").bright

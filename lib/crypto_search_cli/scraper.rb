@@ -1,5 +1,5 @@
 require 'pry'
-class MarketScraper
+class CryptoSearchCli::MarketScraper
 
     #takes in a url, requests and returns the parsed JSON data
     def self.json_helper(url)
@@ -21,7 +21,7 @@ class MarketScraper
     #creates coin objects, assigning their name, id, and symbol for searching purposes
     def self.make_coins
         self.get_coins.each do |coin_attributes|
-            c = Coin.new(coin_attributes)
+            c = CryptoSearchCli::Coin.new(coin_attributes)
         end
     end
 

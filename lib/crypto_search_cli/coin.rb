@@ -1,5 +1,5 @@
 require 'pry'
-class Coin
+class CryptoSearchCli::Coin
     @@all = []
 
     def self.all
@@ -48,7 +48,7 @@ class Coin
         puts "         ------------------------------------"
         puts Rainbow("            Current price for #{self.name}:").bright
         puts Rainbow("               +*+*+*+*+*").bright
-        puts Rainbow("             #{format_currency("USD", "#{MarketScraper.get_price(self).values[0]}")} USD").bright
+        puts Rainbow("             #{format_currency("USD", "#{CryptoSearchCli::MarketScraper.get_price(self).values[0]}")} USD").bright
         puts Rainbow("               +*+*+*+*+*").bright
         puts "         ------------------------------------" 
     end
