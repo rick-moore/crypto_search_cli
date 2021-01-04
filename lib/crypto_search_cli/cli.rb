@@ -30,29 +30,31 @@ class CryptoSearchCli::CLI
         end
     end
 
-    def top_ten(num = 0)
+    def top_ten
         puts Rainbow("              **********************").green
         puts Rainbow("              *Top Cryptocurrencies*").green
         puts Rainbow("              **********************").green
         puts "\n"
 
-        ##### USES PASSED NUMBER TO DISPLAY RANGE OF 10 CURRENCIES #####
-        index = num
-        MarketScraper.get_top_list(num).each do |k, v|
-            puts "[#{index + 1}] #{k.ljust(20)} #{v}" if index < 9
-            puts "[#{index + 1}] #{k.ljust(19)} #{v}" if index >= 9
-            index += 1
-        end
-        puts "\n"
+        top_list = MarketScraper.get_top_list
+        index = 0
 
-        ##### USER INPUT EITHER ADVANCES LIST OR FINDS COIN OBJECT #####
-        puts "Enter a cryptocurrency name or symbol for your search"
-        puts "Or enter 'next' to view the next 10 cryptocurrencies"
-        input = gets.chomp.downcase 
-        if input == "next"
-            top_ten(num + 10)
-        else 
-            coin_grab(input)
+        ##### USES PASSED NUMBER TO DISPLAY RANGE OF 10 CURRENCIES,UNTIL next IS NOT ENTERED #####
+        while true
+            10.times do
+                puts "[#{index + 1}] #{top_list[index][0].ljust(20)} \t#{top_list[index][1]}"
+                index += 1
+            end
+            puts "\n"
+
+            ##### USER INPUT EITHER ADVANCES LIST OR FINDS COIN OBJECT #####
+            puts "Enter a cryptocurrency name or symbol for your search"
+            puts "Or enter 'next' to view the next 10 cryptocurrencies"
+            input = gets.chomp.downcase 
+            if input != "next"
+                coin_grab(input)
+                break
+            end
         end
     end
 
@@ -86,9 +88,9 @@ class CryptoSearchCli::CLI
     ##### MENU FUNCTIONS #####
     def main_menu(coin)
         puts "\n\n"
-        puts "   ***********"
-        puts "    Main Menu"
-        puts "   ***********"
+        puts Rainbow("   ***********").magenta.bright
+        puts Rainbow("    Main Menu").bright
+        puts Rainbow("   ***********").magenta.bright
         puts " [1] Show extended details for #{coin.name}"
         puts " [2] Return and look up another cryptocurrency"
         puts " [3] Exit program"
@@ -110,9 +112,9 @@ class CryptoSearchCli::CLI
         ##### ONLY ADDS EXTENDED DETAILS WHEN WE REACH THIS MENU #####
         coin.add_attributes(MarketScraper.get_extended_data(coin))
         puts "\n\n\n\n"
-        puts "   ******************"
-        puts "    #{coin.name} Details"
-        puts "   ******************"
+        puts Rainbow("   ******************").cyan.bright
+        puts Rainbow("    #{coin.name} Details").bright
+        puts Rainbow("   ******************").cyan.bright
         puts " [1] Current Market Details"
         puts " [2] Historical Market Details"
         puts " [3] Developer Details"
@@ -138,9 +140,9 @@ class CryptoSearchCli::CLI
 
     def market_menu(coin, currency = "usd")
         puts "\n\n\n\n"
-        puts "   *******************************"
-        puts "    #{coin.name} Market Details"
-        puts "   *******************************"
+        puts Rainbow("   *******************************").green.bright
+        puts Rainbow("    #{coin.name} Market Details").bright
+        puts Rainbow("   *******************************").green.bright
         coin.display_market_stats(currency)
 
         puts " [1] Switch Selected National Currency"
@@ -174,9 +176,9 @@ class CryptoSearchCli::CLI
 
     def history_menu(coin, currency = "usd")
         puts "\n\n\n\n"
-        puts "   *******************************"
-        puts "    #{coin.name} Historical Market Details"
-        puts "   *******************************"
+        puts Rainbow("   *******************************").blue.bright
+        puts Rainbow("    #{coin.name} Historical Market Details").bright
+        puts Rainbow("   *******************************").blue.bright
         coin.display_historical_stats(currency)
 
         puts " [1] Switch Selected National Currency"
@@ -206,9 +208,9 @@ class CryptoSearchCli::CLI
 
     def developer_menu(coin)
         puts "\n\n\n\n"
-        puts "   *******************************"
-        puts "    #{coin.name} Developer Details"
-        puts "   *******************************"
+        puts Rainbow("   *******************************").red.bright
+        puts Rainbow("    #{coin.name} Developer Details").bright
+        puts Rainbow("   *******************************").red.bright
         coin.display_developer_stats
 
         puts " [1] Current Market details"

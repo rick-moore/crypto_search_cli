@@ -1,3 +1,4 @@
+require 'pry'
 class Coin
     @@all = []
 
@@ -27,11 +28,12 @@ class Coin
 
     ##### NUMBER FORMATTING #####
     def format_currency(currency, amount)
-        formatted = Monetize.parse("#{currency} #{amount}").format
+        amount = "0" if amount.to_f < 0.01 && amount.to_f > 0.00
+        Monetize.parse("#{currency} #{amount}").format
     end
 
     def format_number(number)
-        if number.length > 3
+        if number.to_i < -999 || number.to_i > 999
             number = number.to_s.split('.')
             number[0].reverse!.gsub!(/(\d{3})(?=\d)/, '\\1,').reverse!
             number.join('.')
@@ -44,15 +46,18 @@ class Coin
     ##### DATA DISPLAYS #####
     def display_current_price 
         puts "         ------------------------------------"
-        puts "            Current price for #{self.name}:"
-        puts "               +*+*+*+*+*"
-        puts "             #{format_currency("USD", "#{MarketScraper.get_price(self).values[0]}")} USD"
-        puts "               +*+*+*+*+*"
+        puts Rainbow("            Current price for #{self.name}:").bright
+        puts Rainbow("               +*+*+*+*+*").bright
+        puts Rainbow("             #{format_currency("USD", "#{MarketScraper.get_price(self).values[0]}")} USD").bright
+        puts Rainbow("               +*+*+*+*+*").bright
         puts "         ------------------------------------" 
     end
 
     def display_developer_stats
         puts "-------------------------------------------"
+        puts "  Homepage:        #{self.links["homepage"][0]}"
+        puts "  Developer Score:                    #{format_number("#{self.developer_score}")}"
+        puts "  Community Score:                    #{format_number("#{self.community_score}")}"
         puts "  Forks:                              #{format_number("#{self.developer_data["forks"]}")}"
         puts "  Subscribers:                        #{format_number("#{self.developer_data["subscribers"]}")}"
         puts "  Total Issues:                       #{format_number("#{self.developer_data["total_issues"]}")}"
@@ -73,6 +78,7 @@ class Coin
         puts "  Market Cap Rank:                    #{self.market_data["market_cap_rank"]}"
         puts "  Total Supply:                       #{format_number("#{self.market_data["total_supply"]}")}"
         puts "  Circulating Supply:                 #{format_number("#{self.market_data["circulating_supply"]}")}"
+        puts "  Liquidity Score:                    #{format_number("#{self.liquidity_score}")}"
         puts "  Fully Diluted Valuation:            #{format_currency("#{cur.upcase}", "#{self.market_data["fully_diluted_valuation"]["#{cur}"]}")}"
         puts "-------------------------------------------"
     end

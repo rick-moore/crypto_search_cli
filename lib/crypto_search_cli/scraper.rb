@@ -1,3 +1,4 @@
+require 'pry'
 class MarketScraper
 
     #takes in a url, requests and returns the parsed JSON data
@@ -43,32 +44,14 @@ class MarketScraper
 
     
     ##### TOP LIST RETRIEVER #####
-    def self.get_top_list(num)
+    def self.get_top_list
         url = "https://coinmarketcap.com/all/views/all/"
         html = Nokogiri::HTML(open(url))
 
-        
-        # retrieve title list
-        titles = html.css(".cmc-table__cell--sort-by__name a")
-        titles_list = []
-        titles.each do |item|
-            titles_list << item.attributes["title"].text
+        titles_and_symbols = html.css('.cmc-table-row').collect do |row|
+            title = row.css('.cmc-link').first.attributes["title"].value
+            symbol = row.css(".cmc-table__cell--sort-by__symbol div").text
+            [title, symbol]
         end
-
-        # retrieve symbol list
-        symbols = html.css(".cmc-table__cell--sort-by__symbol div")
-        symbols_list = []
-        symbols.each do |item|
-            symbols_list << item.text
-        end
-
-        #create a hash of 10 names and symbols, starting from the passed in index
-        titles_and_symbols_hash = {}
-        index = num
-        10.times do 
-            titles_and_symbols_hash[titles_list[index]] = symbols_list[index]
-            index +=1
-        end
-        titles_and_symbols_hash
     end
 end
