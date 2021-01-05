@@ -59,8 +59,8 @@ class CryptoSearchCli::CLI
         end
     end
 
+    # Finds a coin object, displays the current price, and calls #main_menu
     def coin_grab(input)
-        # Finds a coin object, displays the current price, and calls #main_menu
         coin = CryptoSearchCli::Coin.find_by_symbol_or_name(input)
         if coin.class == CryptoSearchCli::Coin
             coin.display_current_price
@@ -71,8 +71,8 @@ class CryptoSearchCli::CLI
         end
     end
 
+    # Exits the program
     def exit_program
-        # Exits the program
         puts "\n\n\n\n"
         puts Rainbow("        ------------------------------------").darkblue
         puts Rainbow("                    *+*+*+*+*+*").blue
