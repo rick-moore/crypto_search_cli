@@ -20,6 +20,8 @@ class CryptoSearchCli::Coin
 
 
     ##### COIN SEARCHING #####
+    # Takes in a string, searches for a symbol that matches a coin object symbol and returns it, if not found,
+    # searches for a coin object name that matches and returns it, else, returns nil
     def self.find_by_symbol_or_name(input)
         self.all.detect{|i| i.symbol.downcase == input.downcase} || self.all.detect{|i| i.name.downcase == input.downcase}
     end
