@@ -3,10 +3,10 @@ class CryptoSearchCli::CLI
 
     ##### INITIALIZING FUNCTIONS #####
     def call
-        ##### PULL DATA AND CREATE COIN OBJECTS FROM API #####
+        # Pull data and create coin objects from the API
         CryptoSearchCli::MarketScraper.make_coins
 
-        ##### WELCOME USER #####
+        # Welcome user
         puts "\n\n\n\n"
         puts Rainbow("        ------------------------------------").darkblue
         puts Rainbow("                    *+*+*+*+*+*").blue
@@ -19,7 +19,7 @@ class CryptoSearchCli::CLI
     def main_lookup
         puts "\n\n\n"
 
-        ##### USER INPUT EITHER OPENS CURRENCY LIST OR FINDS COIN OBJECT #####
+        # User input either opens cryptocurrency list or searches for a name or symbol
         puts Rainbow("  Enter a cryptocurrency name or symbol for your search,").bright
         puts Rainbow("Or enter 'list' to view the current top 10 cryptocurrencies:").bright
         input = gets.chomp.downcase
@@ -36,10 +36,11 @@ class CryptoSearchCli::CLI
         puts Rainbow("              **********************").green
         puts "\n"
 
+        # Scrapes website for top list of cryptocurrencies
         top_list = CryptoSearchCli::MarketScraper.get_top_list
         index = 0
 
-        ##### USES PASSED NUMBER TO DISPLAY RANGE OF 10 CURRENCIES,UNTIL next IS NOT ENTERED #####
+        # Displays the next 10 currencies on the top list
         while true
             10.times do
                 puts "[#{index + 1}] #{top_list[index][0].ljust(20)} \t#{top_list[index][1]}"
@@ -47,7 +48,7 @@ class CryptoSearchCli::CLI
             end
             puts "\n"
 
-            ##### USER INPUT EITHER ADVANCES LIST OR FINDS COIN OBJECT #####
+            # User input either advances the list, or calls #coin_grab
             puts "Enter a cryptocurrency name or symbol for your search"
             puts "Or enter 'next' to view the next 10 cryptocurrencies"
             input = gets.chomp.downcase 
@@ -59,7 +60,7 @@ class CryptoSearchCli::CLI
     end
 
     def coin_grab(input)
-        ##### EITHER FINDS COIN OBJECT BY NAME OR SYMBOL, AND CALLS #main_menu #####
+        # Finds a coin object, displays the current price, and calls #main_menu
         coin = CryptoSearchCli::Coin.find_by_symbol_or_name(input)
         if coin.class == CryptoSearchCli::Coin
             coin.display_current_price
@@ -71,7 +72,7 @@ class CryptoSearchCli::CLI
     end
 
     def exit_program
-        ##### EXITS THE PROGRAM #####
+        # Exits the program
         puts "\n\n\n\n"
         puts Rainbow("        ------------------------------------").darkblue
         puts Rainbow("                    *+*+*+*+*+*").blue
@@ -109,7 +110,7 @@ class CryptoSearchCli::CLI
     end
 
     def details_menu(coin)
-        ##### ONLY ADDS EXTENDED DETAILS WHEN WE REACH THIS MENU #####
+        # Extended details added only when we reach this menu
         coin.add_attributes(CryptoSearchCli::MarketScraper.get_extended_data(coin))
         puts "\n\n\n\n"
         puts Rainbow("   ******************").cyan.bright

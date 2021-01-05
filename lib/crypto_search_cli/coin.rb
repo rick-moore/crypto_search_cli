@@ -1,4 +1,3 @@
-require 'pry'
 class CryptoSearchCli::Coin
     @@all = []
 
@@ -32,11 +31,13 @@ class CryptoSearchCli::Coin
 
 
     ##### NUMBER FORMATTING #####
+    # Takes in a currency code and number string, and formats it with currency symbol, commas and decimals
     def format_currency(currency, amount)
         amount = "0" if amount.to_f < 0.01 && amount.to_f > 0.00
         Monetize.parse("#{currency} #{amount}").format
     end
 
+    # Correctly formats large number strings with commas and decimals
     def format_number(number)
         if number.to_i < -999 || number.to_i > 999
             number = number.to_s.split('.')
