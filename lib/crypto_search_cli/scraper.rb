@@ -20,7 +20,7 @@ class CryptoSearchCli::MarketScraper
     # Creates coin objects, assigning their name, id, and symbol for searching purposes
     def self.make_coins
         self.get_coins.each do |coin_attributes|
-            c = CryptoSearchCli::Coin.new(coin_attributes)
+            CryptoSearchCli::Coin.new(coin_attributes)
         end
     end
 
