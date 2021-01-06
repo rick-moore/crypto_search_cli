@@ -41,13 +41,9 @@ class CryptoSearchCli::Coin
 
     # Correctly formats large number strings with commas and decimals
     def format_number(number)
-        if number.to_i < -999 || number.to_i > 999
-            number = number.to_s.split('.')
-            number[0].reverse!.gsub!(/(\d{3})(?=\d)/, '\\1,').reverse!
-            number.join('.')
-        else
-            number
-        end
+        whole, decimal = number.to_s.split('.')
+        whole.reverse!.gsub!(/(\d{3})(?=\d)/, '\\1,').reverse! if whole.to_i < -999 || whole.to_i > 999
+        [whole, decimal].compact.join('.')
     end
 
 
@@ -93,7 +89,7 @@ class CryptoSearchCli::Coin
 
     def display_historical_stats(cur)
         puts "-------------------------------------------"
-        puts "      **Prices shown in #{cur.upcase}**"       
+        puts "      **Prices shown in #{cur.upcase}**"    
         puts "  Current Price:                      #{format_currency("#{cur.upcase}", "#{self.market_data["current_price"]["#{cur}"]}")}"
         puts "  24 Hour Price Change:               #{format_currency("#{cur.upcase}", "#{self.market_data["price_change_24h_in_currency"]["#{cur}"]}")}"
         puts "  24-Hour Price Change Percentage:    #{self.market_data["price_change_percentage_24h_in_currency"]["#{cur}"]}%"
