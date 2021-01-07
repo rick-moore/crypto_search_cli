@@ -1,9 +1,12 @@
 class CryptoSearchCli::CLI
+    attr_reader :top_list
 
     ##### INITIALIZING FUNCTIONS #####
     def call
         # Pull data and create coin objects from the API
         CryptoSearchCli::MarketScraper.make_coins
+        # Scrapes website for top currencies
+        @top_list = CryptoSearchCli::MarketScraper.get_top_list
 
         # Welcome user
         puts "\n\n\n\n"
@@ -35,8 +38,6 @@ class CryptoSearchCli::CLI
         puts Rainbow("              **********************").green
         puts "\n"
 
-        # Scrapes website for top list of cryptocurrencies
-        top_list = CryptoSearchCli::MarketScraper.get_top_list
         index = 0
 
         # Displays the next 10 currencies on the top list

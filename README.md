@@ -2,19 +2,11 @@
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'crypto_search_cli'
-```
+Clone this repo on to your machine
 
 And then execute:
 
     $ bundle install
-
-Or install it yourself as:
-
-    $ gem install crypto_search_cli
 
 ## Usage
 

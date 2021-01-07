@@ -43,6 +43,7 @@ class CryptoSearchCli::MarketScraper
 
     # Returns an array of arrays with 2 elements each, the title and symbol of a coin
     def self.get_top_list
+        puts "SCRAPING LIST"
         url = "https://coinmarketcap.com/all/views/all/"
         html = Nokogiri::HTML(open(url))
 
