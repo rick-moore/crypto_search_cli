@@ -23,7 +23,7 @@ To start the CLI, run:
 
 Search for a cryptocurrency name or symbol to look it up, or type 'list' to see an extendable list of the top current cryptocurrencies.
 
-Navigate the menus to view more information on a selected crypto-currency
+Navigate the menus to view more information on a selected crypto-currency:
 
 ![cryptosearch-top](https://user-images.githubusercontent.com/72274257/122453322-85bbcf00-cfaa-11eb-8190-885589924e2b.gif)
 
